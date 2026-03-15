@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#---------Variable Assigning-------
+
 DATE=$(date +%Y%m%d)
 HOST=$(hostname)
 BASE_DIR="/home/student/patching_$DATE"
@@ -19,12 +21,11 @@ fi
 mkdir -p "$BASE_DIR"
 echo " Patching started on $HOST at $(date)" | tee -a "$LOG_FILE"
 
+#-------------Old kernel--------------
+
 echo "Running kernel before patch: $OLD_KERNEL" >> "$LOG_FILE"
 
-
-#################################
-#Pre-checks
-#################################
+#-------------Pre-checks--------------
 
 {
 echo "#################################"
@@ -74,7 +75,6 @@ yum makecache &>> "$LOG_FILE"
 echo "Patching Started..." | tee -a "$LOG_FILE"
 
 yum update -y | tee -a "$LOG_FILE"
-
 
 if [[ $? -ne 0 ]]; then
 	echo " Patching Failed" | tee -a "$LOG_FILE"
